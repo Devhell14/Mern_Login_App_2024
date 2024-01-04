@@ -37,7 +37,6 @@ exports.register = async (req, res) => {
     if (usernameExists) {
       return res.status(400).send({ error: "Please use a unique username." });
     }
-
     // Check existing email
     const emailExists = await UserModel.findOne({ email });
     if (emailExists) {
