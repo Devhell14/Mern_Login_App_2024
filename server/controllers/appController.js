@@ -33,9 +33,7 @@ exports.register = async (req, res) => {
     const { username, password, profile, email } = req.body;
 
     // Check existing username
-    const dbUrl = process.env.DATABASE;
-    const emailEnv = process.env.EMAIL;
-    // const usernameExists = await UserModel.findOne({ username });
+    const usernameExists = await UserModel.findOne({ username });
     // if (usernameExists) {
     //   return res.status(400).send({ error: "Please use a unique username." });
     // }
@@ -59,8 +57,7 @@ exports.register = async (req, res) => {
       //  return res.status(201).send({ msg: "User registered successfully" });
     // }
     const result = {
-      data: dbUrl,
-      email: emailEnv
+      data: usernameExists,
     }
 
     return res.status(200).json(result);
