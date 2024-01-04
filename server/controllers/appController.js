@@ -34,33 +34,28 @@ exports.register = async (req, res) => {
 
     // Check existing username
     const usernameExists = await UserModel.findOne({ username });
-    // if (usernameExists) {
-    //   return res.status(400).send({ error: "Please use a unique username." });
-    // }
-    // Check existing email
-    // const emailExists = await UserModel.findOne({ email });
-    // if (emailExists) {
-    //   return res.status(400).send({ error: "Please use a unique email." });
-    // }
-
-    // if (password) {
-    //   const hashedPassword = await bcrypt.hash(password, 10);
-
-    //   const user = new UserModel({
-    //     username,
-    //     password: hashedPassword,
-    //     profile: profile || "",
-    //     email,
-    //   });
-
-    //   const result = await user.save();
-      //  return res.status(201).send({ msg: "User registered successfully" });
-    // }
-    const result = {
-      data: usernameExists,
+    if (usernameExists) {
+      return res.status(400).send({ error: "Please use a unique username." });
+    }
+   // Check existing email
+    const emailExists = await UserModel.findOne({ email });
+    if (emailExists) {
+      return res.status(400).send({ error: "Please use a unique email." });
     }
 
-    return res.status(200).json(result);
+    if (password) {
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      const user = new UserModel({
+        username,
+        password: hashedPassword,
+        profile: profile || "",
+        email,
+      });
+
+      const result = await user.save();
+       return res.status(201).send({ msg: "User registered successfully" });
+    }
   } catch (error) {
     console.error(error);
     return res.status(500).send({ error: "Internal server error" });
