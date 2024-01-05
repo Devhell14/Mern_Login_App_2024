@@ -71,15 +71,21 @@ export async function registerUser(credentials) {
 /** login function */
 export async function verifyPassword({ username, password }) {
   try {
-    if (username) {
+    if (username && password) {
       const { data } = await axios.post(
         import.meta.env.VITE_BACKEND_URL + "/api/login",
         { username, password }
       );
       return Promise.resolve({ data });
+    } else {
+      return Promise.reject({ error: "Username or Password is missing...!" });
     }
   } catch (error) {
-    return Promise.reject({ error: "Password doesn't Match...!" });
+    if (error.response && error.response.status === 401) {
+      return Promise.reject({ error: "Invalid username or password...!" });
+    }
+    console.error('Error occurred:', error);
+    return Promise.reject({ error: "An unexpected error occurred...!" });
   }
 }
 
