@@ -71,17 +71,20 @@ export async function registerUser(credentials) {
 /** login function */
 export async function verifyPassword({ username, password }) {
   try {
-    if (username) {
-      const { data } = await axios.post(
-        import.meta.env.VITE_BACKEND_URL + "/api/login",
-        { username, password }
-      );
-      return Promise.resolve({ data });
+    if (!username || !username.trim()) {
+      return Promise.reject({ error: "Invalid username...!" });
     }
+
+    const { data } = await axios.post(
+      import.meta.env.VITE_BACKEND_URL + "/api/login",
+      { username, password }
+    );
+    return Promise.resolve({ data });
   } catch (error) {
     return Promise.reject({ error: "Password doesn't Match...!" });
   }
 }
+
 
 
 /** update user profile function */
