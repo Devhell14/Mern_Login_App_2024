@@ -19,8 +19,9 @@ export async function getUsername() {
 /** authenticate function */
 export async function authenticate(username) {
   try {
+    console.log("Authenticating", process.env.REACT_APP_BASE_URL); 
     return await axios.post(
-      import.meta.env.VITE_BACKEND_URL + "/api/authenticate",
+      process.env.VITE_BACKEND_URL + "/api/authenticate",
       { username }
     );
   } catch (error) {
