@@ -27,7 +27,7 @@ app.get("/", (req, res) => {
 });
 
 /** api routes */
-app.use("/api", router);
+app.use("api", router);
 
 /** start server only when we have valid connection */
 const port = process.env.PORT
