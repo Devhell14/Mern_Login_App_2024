@@ -20,7 +20,7 @@ export async function getUsername() {
 export async function authenticate(username) {
   try {
     return await axios.post(
-      import.meta.env.VITE_BACKEND_URL + "/api/authenticate",
+      import.meta.env.VITE_BACKEND_URL + "api/authenticate",
       { username }
     );
   } catch (error) {
@@ -32,7 +32,7 @@ export async function authenticate(username) {
 export async function getUser({ username }) {
   try {
     const { data } = await axios.get(
-      import.meta.env.VITE_BACKEND_URL + `/api/user/${username}`
+      import.meta.env.VITE_BACKEND_URL + `api/user/${username}`
     );
     return { data };
   } catch (error) {
@@ -47,7 +47,7 @@ export async function registerUser(credentials) {
       data: { msg },
       status,
     } = await axios.post(
-      import.meta.env.VITE_BACKEND_URL + `/api/register`,
+      import.meta.env.VITE_BACKEND_URL + `api/register`,
       credentials
     );
 
@@ -55,7 +55,7 @@ export async function registerUser(credentials) {
 
     /** send email */
     if (status === 201) {
-      await axios.post(import.meta.env.VITE_BACKEND_URL + "/api/registerMail", {
+      await axios.post(import.meta.env.VITE_BACKEND_URL + "api/registerMail", {
         username,
         userEmail: email,
         text: msg,
@@ -73,7 +73,7 @@ export async function verifyPassword({ username, password }) {
   try {
     if (username && password) {
       const { data } = await axios.post(
-        import.meta.env.VITE_BACKEND_URL + "/api/login",
+        import.meta.env.VITE_BACKEND_URL + "api/login",
         { username, password }
       );
       return Promise.resolve({ data });
@@ -96,7 +96,7 @@ export async function updateUser(response) {
   try {
     const token = await localStorage.getItem("token");
     const data = await axios.put(
-      import.meta.env.VITE_BACKEND_URL + "/api/updateuser",
+      import.meta.env.VITE_BACKEND_URL + "api/updateuser",
       response,
       { headers: { Authorization: `Bearer ${token}` } }
     );
@@ -114,7 +114,7 @@ export async function generateOTP(username) {
     const {
       data: { code },
       status,
-    } = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/generateOTP`, {
+    } = await axios.get(`${import.meta.env.VITE_BACKEND_URL}api/generateOTP`, {
       params: { username },
     });
 
@@ -129,7 +129,7 @@ export async function generateOTP(username) {
       const text = `Your Password Recovery OTP is ${code}. Verify and recover your password.`;
 
       // Send email
-      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/registerMail`, {
+      await axios.post(`${import.meta.env.VITE_BACKEND_URL}api/registerMail`, {
         username,
         userEmail: email,
         text,
@@ -155,7 +155,7 @@ export async function generateOTP(username) {
 export async function verifyOTP({ username, code }) {
   try {
     const response = await axios.get(
-      `${import.meta.env.VITE_BACKEND_URL}/api/verifyOTP`,
+      `${import.meta.env.VITE_BACKEND_URL}api/verifyOTP`,
       {
         params: { username, code },
       }
@@ -172,7 +172,7 @@ export async function verifyOTP({ username, code }) {
 export async function resetPassword({ username, password }) {
   try {
     const response = await axios.put(
-      `${import.meta.env.VITE_BACKEND_URL}/api/resetPassword`,
+      `${import.meta.env.VITE_BACKEND_URL}api/resetPassword`,
       {
         username,
         password,
