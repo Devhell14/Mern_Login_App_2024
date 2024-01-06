@@ -20,7 +20,7 @@ export async function getUsername() {
 export async function authenticate(username) {
   try {
     return await axios.post(
-      import.meta.env.VITE_BACKEND_URL + "/api/authenticate",
+      import.meta.env.VITE_VERCEL_URL + "/api/authenticate",
       { username },
     );
   } catch (error) {
@@ -32,7 +32,7 @@ export async function authenticate(username) {
 export async function getUser({ username }) {
   try {
     const { data } = await axios.get(
-      import.meta.env.VITE_BACKEND_URL + `/api/user/${username}`,
+      import.meta.env.VITE_VERCEL_URL + `/api/user/${username}`,
     );
     return { data };
   } catch (error) {
