@@ -32,7 +32,7 @@ export async function authenticate(username) {
 export async function getUser({ username }) {
   try {
     const { data } = await axios.get(
-      import.meta.env.VITE_BACKEND_URL + `/api/user/${username}`
+      process.env.VITE_BACKEND_URL + `/api/user/${username}`
     );
     return { data };
   } catch (error) {
