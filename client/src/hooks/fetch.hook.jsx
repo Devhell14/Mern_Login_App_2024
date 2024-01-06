@@ -17,7 +17,6 @@ export default function useFetch(query) {
 
         // Destructure the result directly instead of creating a separate variable
         const { username } = !query ? await getUsername() : { username: "" };
-        console.log("query =>", query);
         const { data, status } = !query
           ? await axios.get(
             import.meta.env.VITE_VERCEL_URL + `/api/user/${username}`
