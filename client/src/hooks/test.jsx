@@ -21,9 +21,9 @@ export default function useFetch(query) {
 
         const { data, status } = !query
           ? await axios.get(
-              import.meta.env.VITE_BACKEND_URL + `api/user/${username}`
+            import.meta.env.VITE_VERCEL_URL + `api/user/${username}`
             )
-          : await axios.get(import.meta.env.VITE_BACKEND_URL + `api/${query}`);
+          : await axios.get(import.meta.env.VITE_VERCEL_URL + `api/${query}`);
 
         if (status === 201) {
           setData((prev) => ({ ...prev, apiData: data, status: status }));
