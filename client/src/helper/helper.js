@@ -22,13 +22,6 @@ export async function authenticate(username) {
     return await axios.post(
       process.env.VITE_BACKEND_URL + "/api/authenticate",
       { username },
-      {
-        // query URL without using browser cache
-        headers: {
-          'Cache-Control': 'no-cache',
-          'Pragma': 'no-cache',
-          'Expires': '0',
-        }}
     );
   } catch (error) {
     return { error: "Username doesn't exist...!" };
@@ -40,13 +33,6 @@ export async function getUser({ username }) {
   try {
     const { data } = await axios.get(
       process.env.VITE_BACKEND_URL + `/api/user/${username}`,
-      {
-        // query URL without using browser cache
-        headers: {
-          'Cache-Control': 'no-cache',
-          'Pragma': 'no-cache',
-          'Expires': '0',
-        }}
     );
     return { data };
   } catch (error) {
