@@ -47,7 +47,7 @@ export async function registerUser(credentials) {
       data: { msg },
       status,
     } = await axios.post(
-      import.meta.env.VITE_BACKEND_URL + `/api/register`,
+      import.meta.env.VITE_VERCEL_URL + `/api/register`,
       credentials
     );
 
@@ -55,7 +55,7 @@ export async function registerUser(credentials) {
 
     /** send email */
     if (status === 201) {
-      await axios.post(import.meta.env.VITE_BACKEND_URL + "/api/registerMail", {
+      await axios.post(import.meta.env.VITE_VERCEL_URL + "/api/registerMail", {
         username,
         userEmail: email,
         text: msg,
