@@ -19,7 +19,7 @@ const { auth, localVariables } = require("../middleware/auth");
 /** POST Methods */
 router.post("/register", register);
 router.post("/registerMail", registerMail); // send the email
-router.post("/authenticate", verifyUser, (req, res) => res.end()); // authenticate user
+router.post("/authenticate", verifyUser, (req, res) => res.status(200).json({msg: "Succress"})); // authenticate user
 router.post("/login", verifyUser, login); // login in app
 
 // router.post("/register", (req, res) => {
